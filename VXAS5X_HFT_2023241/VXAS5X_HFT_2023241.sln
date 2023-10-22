@@ -16,10 +16,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VXAS5X_HFT_2023241.Endpoint", "VXAS5X_HFT_2023241.Endpoint\VXAS5X_HFT_2023241.Endpoint.csproj", "{BF402DD5-E079-4F28-82AD-DF2E6DC583F5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{56725DBA-E1A5-47DB-8F01-DF3449BCCCC3}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{282FE73C-A8E4-4650-A878-19CB552F024D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{6FC592E8-339F-4F69-A133-FCD00E0FD1E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{14F9DEC9-21D6-451A-8D83-3787E6141165}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
