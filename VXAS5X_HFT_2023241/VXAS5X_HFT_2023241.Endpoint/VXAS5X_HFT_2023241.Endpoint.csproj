@@ -10,8 +10,4 @@
     <ProjectReference Include="..\VXAS5X_HFT_2023241.Repository\VXAS5X_HFT_2023241.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

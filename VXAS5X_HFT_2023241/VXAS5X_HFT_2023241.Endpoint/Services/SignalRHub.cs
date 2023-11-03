@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 using System;
 
-namespace VXAS5X_HFT_2022232.Endpoint.Services
+namespace VXAS5X_HFT_2023241.Endpoint.Services
 {
     public class SignalRHub : Hub
     {
