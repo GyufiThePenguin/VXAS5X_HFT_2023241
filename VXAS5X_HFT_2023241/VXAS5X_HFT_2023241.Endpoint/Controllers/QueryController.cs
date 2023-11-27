@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using VXAS5X_HFT_2023241.Logic;
 using VXAS5X_HFT_2023241.Models;
-using VXAS5X_HFT_2023241.Logic;
-using VXAS5X_HFT_2023241.Models;
 
 namespace VXAS5X_HFT_2023241.Endpoint.Controllers
 {
