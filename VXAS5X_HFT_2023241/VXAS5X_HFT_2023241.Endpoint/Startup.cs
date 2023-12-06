@@ -7,10 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VXAS5X_HFT_2023241.Endpoint.Services;
 using VXAS5X_HFT_2023241.Logic;
 using VXAS5X_HFT_2023241.Repository;
-using VXAS5X_HFT_2023241.Endpoint.Services;
 using VXAS5X_HFT_2023241.Logic;
 using VXAS5X_HFT_2023241.Repository;
 
@@ -33,7 +31,6 @@ namespace VXAS5X_HFT_2023241.Endpoint
             services.AddTransient<IStagePlayRepo, StagePlayRepo>();
             services.AddTransient<IDramaturgRepo, DramaturgRepo>();
 
-            services.AddSignalR();
             services.AddTransient<StagePlayDbContext, StagePlayDbContext>();
 
         }
@@ -46,19 +43,12 @@ namespace VXAS5X_HFT_2023241.Endpoint
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(x => x
-               .AllowCredentials()
-               .AllowAnyMethod()
-               .AllowAnyHeader()
-               .WithOrigins("http://localhost:3696"));
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-
                 endpoints.MapControllers();
-                endpoints.MapHub<SignalRHub>("/hub");
 
             });
         }

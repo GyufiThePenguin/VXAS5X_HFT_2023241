@@ -6,7 +6,7 @@ namespace VXAS5X_HFT_2023241.Client
 {
     internal class Program
     {
-        static RestService restService = new RestService("http://localhost:60462");
+        static RestService restService = new RestService("http://localhost:62255");
         static void Main(string[] args)
         {
 
@@ -29,9 +29,9 @@ namespace VXAS5X_HFT_2023241.Client
             Console.WriteLine("7. Delete");
             Console.WriteLine("0. Quit");
 
-            var stagePlay = restService.Get<StagePlay>("StagePlay");
-            var dramaturgs = restService.Get<Dramaturg>("Dramaturg");
-            var actors = restService.Get<Actor>("Actor");
+            var stagePlay = restService.Get<StagePlay>("/stageplay");
+            var dramaturgs = restService.Get<Dramaturg>("dramaturg");
+            var actors = restService.Get<Actor>("actor");
 
             int menuInput = Convert.ToInt32(Console.ReadLine());
             var q1 = restService.Get<StagePlay>("query/One");
