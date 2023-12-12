@@ -34,105 +34,139 @@ namespace VXAS5X_HFT_2023241.Test
             //Dramaturgs
             Dramaturg dBelaBalla = new Dramaturg() { Name = "Béla Balla" };
             var dramaturgs = new List<Dramaturg>()
-        {
-            new Dramaturg()
             {
-                Id = 1,
-                Name = "Róbert Alföldi",
-                Age = 56,
-                Gender = "man"
-            },
-            new Dramaturg()
-            {
-                Id=2,
-                Name="Réka Varga",
-                Gender="woman",
-                Age=68
-            },
-            new Dramaturg()
-            {
-                Id=3,
-                Name= "János Mohácsi",
-                Gender="man",
-                Age=68,
-            },
-        };
+                new Dramaturg()
+                {
+                    Id = 1,
+                    Name = "Róbert Alföldi",
+                    Age = 56,
+                    Gender = "man"
+                },
+                new Dramaturg()
+                {
+                    Id=2,
+                    Name="Réka Varga",
+                    Gender="woman",
+                    Age=68
+                },
+                new Dramaturg()
+                {
+                    Id=3,
+                    Name= "János Mohácsi",
+                    Gender="man",
+                    Age=68,
+                },
+            };
 
             //Plays
             var plays = new List<StagePlay>()
-        {
-            new StagePlay()
             {
-                Id=1,
-                Title="StagePlayTitle1",
-                Profit=1357481,
-                Rating="good",
-                Premier = 2018,
-                Dramaturg = dBelaBalla
-            },
-            new StagePlay()
-            {
-                Id=2,
-                Title="StagePlayTitle2",
-                Rating="exceptional",
-                Premier=2008,
-                Profit=15612,
+                new StagePlay()
+                {
+                    Id=1,
+                    Title="StagePlayTitle1",
+                    Profit=1357481,
+                    Rating="good",
+                    Premier = 2018,
+                    Dramaturg = dBelaBalla
+                },
+                new StagePlay()
+                {
+                    Id=2,
+                    Title="StagePlayTitle2",
+                    Rating="exceptional",
+                    Premier=2008,
+                    Profit=15612,
 
-            },
-            new StagePlay()
-            {
-                Id=3,
-                Title="StagePlayTitle3",
-                Profit=18513216,
-                Premier=2020
-            },
-            new StagePlay()
-            {
-                Id = 4,
-                Title = "Tükör a tóban - A menyasszony visszavár",
-                Rating = "okay",
-                Profit = 9999999
-            },
-            new StagePlay()
-            {
-                Id = 5,
-                Title = "StagePlayTitle5",
-                Rating = "horrible",
-                Profit=2458764,
-            }
-        };
+                },
+                new StagePlay()
+                {
+                    Id=3,
+                    Title="StagePlayTitle3",
+                    Profit=18513216,
+                    Premier=2020
+                },
+                new StagePlay()
+                {
+                    Id = 4,
+                    Title = "Tükör a tóban - A menyasszony visszavár",
+                    Rating = "okay",
+                    Profit = 9999999
+                },
+                new StagePlay()
+                {
+                    Id = 5,
+                    Title = "StagePlayTitle5",
+                    Rating = "horrible",
+                    Profit=2458764,
+                }
+            };
 
             //Actors
             var actors = new List<Actor>()
-        {
-            new Actor()
             {
-                Id = 1,
-                Name = "TotallyReal Actor1",
-                Age = 48,
-                Gender = "man"
-            },
-            new Actor()
+                new Actor()
+                {
+                    Id = 1,
+                    Name = "TotallyReal Actor1",
+                    Age = 48,
+                    Gender = "man"
+                },
+                new Actor()
+                {
+                    Id=2,
+                    Name="TotallyReal Actor2",
+                    Gender="woman",
+                    Age=50
+                },
+                new Actor()
+                {
+                    Id=3,
+                    Name="TotallyReal Actor3",
+                    Gender="man",
+                    Age=53
+                },
+            };
+
+
+
+            // Additional Dramaturgs
+            dramaturgs.AddRange(new List<Dramaturg>
             {
-                Id=2,
-                Name="TotallyReal Actor2",
-                Gender="woman",
-                Age=50
-            },
-            new Actor()
+                new Dramaturg { Id = 4, Name = "Dramaturg 4", Age = 45, Gender = "woman" },
+                new Dramaturg { Id = 5, Name = "Dramaturg 5", Age = 50, Gender = "man" }
+            });
+
+            // Additional Plays
+            plays.AddRange(new List<StagePlay>
             {
-                Id=3,
-                Name="TotallyReal Actor3",
-                Gender="man",
-                Age=53
-            },
-        };
+                new StagePlay { Id = 6, Title = "StagePlayTitle6", Profit = 500000, Rating = "good", Premier = 2019, Dramaturg = dramaturgs[3] },
+                new StagePlay { Id = 7, Title = "StagePlayTitle7", Profit = 750000, Rating = "exceptional", Premier = 2020, Dramaturg = dramaturgs[4] }
+            });
+
+            // Additional Actors
+            actors.AddRange(new List<Actor>
+            {
+                new Actor { Id = 4, Name = "Actor 4", Age = 40, Gender = "woman" },
+                new Actor { Id = 5, Name = "Actor 5", Age = 55, Gender = "man" }
+            });
+
+            // Associate actors with plays
+            plays[0].Actors = new List<Actor> { actors[0], actors[1] };
+            plays[1].Actors = new List<Actor> { actors[1], actors[2] };
+            plays[2].Actors = new List<Actor> { actors[2], actors[3] };
+            plays[3].Actors = new List<Actor> { actors[3], actors[4] };
+            plays[4].Actors = new List<Actor> { actors[4], actors[0] };
+
+
 
             mockActorRepo.Setup((t) => t.ReadAll()).Returns(actors.AsQueryable());
             mockDramaturgRepo.Setup((t) => t.ReadAll()).Returns(dramaturgs.AsQueryable());
             mockStagePlayRepo.Setup((t) => t.ReadAll()).Returns(plays.AsQueryable());
 
-        }
+            }
+
+
 
 
         [Test] //1
@@ -176,7 +210,7 @@ namespace VXAS5X_HFT_2023241.Test
 
         }
 
-        [Test] //5 TODO: Check it again
+        [Test] //5
         public void ReadAllTest()
         {
             var res = dramaturgLogic.ReadAll().ToArray();
@@ -188,7 +222,7 @@ namespace VXAS5X_HFT_2023241.Test
         public void DramaturgCount()
         {
             var res = dramaturgLogic.ReadAll().Count();
-            Assert.That(res, Is.EqualTo(3));
+            Assert.That(res, Is.EqualTo(5));
 
         }
 
@@ -227,9 +261,77 @@ namespace VXAS5X_HFT_2023241.Test
         public void GoodPlaysTest()
         {
             var res = stagePlayLogic.GoodPlays();
-            Assert.That(res == 1);
+            Assert.That(res,Is.EqualTo(2));
 
         }
+
+        // Multi table non-crud
+
+        [Test] //12
+        public void ActorsInExceptionalPlaysTest()
+        {      
+            var result = stagePlayLogic.ActorsInExceptionalPlays().ToArray();
+            Assert.That(result, Is.Not.Empty);
+            Assert.That(result.Length, Is.EqualTo(2));
+        }
+
+        [Test] //13
+        public void AverageAgeOfActorsInSuccessfulPlaysTest()
+        {
+            var averageAge = stagePlayLogic.AverageAgeOfActorsInSuccessfulPlays();
+            Assert.That(averageAge, Is.GreaterThan(0));
+        }
+
+        [Test] //14
+        public void MostProfitableDramaturgsTest()
+        {
+            var profitableDramaturgs = stagePlayLogic.MostProfitableDramaturgs().ToArray();
+            Assert.That(profitableDramaturgs, Is.Not.Empty);
+            Assert.That(profitableDramaturgs.Length, Is.EqualTo(4));
+        }
+
+        [Test] //15
+        public void PlaysWithSeniorActorsTest()
+        {
+            var playsWithSeniorActors = stagePlayLogic.PlaysWithSeniorActors(50).ToArray();
+            Assert.That(playsWithSeniorActors, Is.Not.Empty);
+            Assert.That(playsWithSeniorActors, Has.Some.Matches<StagePlay>(play => play.Actors.Any(actor => actor.Age > 50)));
+        }
+
+
+        [Test] //16
+        public void DramaturgsWhoWorkedWithSpecificActorTest()
+        {
+            string actorName = "TotallyReal Actor1";
+            var result = stagePlayLogic.DramaturgsWhoWorkedWithActor(actorName).ToArray();
+            Assert.IsNotNull(result);
+            Assert.IsNotEmpty(result);
+        }
+
+        [Test] //17
+        public void DramaturgsWithMostPlaysTest()
+        {
+            var topDramaturgs = stagePlayLogic.DramaturgsWithMostPlays().ToArray();
+            Assert.That(topDramaturgs.Length, Is.EqualTo(3));
+        }
+
+
+        [Test] //18
+        public void PlaysWithMaxActorAgeAboveTest()
+        {
+            int ageThreshold = 45;
+            var result = stagePlayLogic.PlaysWithMaxActorAgeAbove(ageThreshold).ToArray();
+            Assert.IsNotNull(result);
+            Assert.IsNotEmpty(result);
+        }
+
+
+
+
+
+
+
+
 
     }
 }
