@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{14F9DE
 		..\.gitignore = ..\.gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopFrontend.WpfClient", "DesktopFrontend.WpfClient\DesktopFrontend.WpfClient.csproj", "{759CC7AD-B2AD-4BC7-929C-4A1FBAAEE120}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{BF402DD5-E079-4F28-82AD-DF2E6DC583F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF402DD5-E079-4F28-82AD-DF2E6DC583F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF402DD5-E079-4F28-82AD-DF2E6DC583F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{759CC7AD-B2AD-4BC7-929C-4A1FBAAEE120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{759CC7AD-B2AD-4BC7-929C-4A1FBAAEE120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{759CC7AD-B2AD-4BC7-929C-4A1FBAAEE120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{759CC7AD-B2AD-4BC7-929C-4A1FBAAEE120}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{D3CBF516-74BF-4284-8A86-FDD21FC3BD7F} = {56725DBA-E1A5-47DB-8F01-DF3449BCCCC3}
 		{6CD339DF-7064-4AFA-A67C-998AEC1E5B84} = {56725DBA-E1A5-47DB-8F01-DF3449BCCCC3}
 		{BF402DD5-E079-4F28-82AD-DF2E6DC583F5} = {56725DBA-E1A5-47DB-8F01-DF3449BCCCC3}
+		{759CC7AD-B2AD-4BC7-929C-4A1FBAAEE120} = {282FE73C-A8E4-4650-A878-19CB552F024D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D00FF820-2803-4152-9DDB-3E5589190395}
