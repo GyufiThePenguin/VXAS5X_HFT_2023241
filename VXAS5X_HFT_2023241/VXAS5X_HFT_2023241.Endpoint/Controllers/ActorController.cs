@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
-
+using VXAS5X_HFT_2023241.Endpoint.Services;
+using Newtonsoft.Json.Linq;
 
 namespace VXAS5X_HFT_2023241.Endpoint.Controllers
 {
@@ -15,11 +16,12 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
     {
 
         IActorLogic actorLogic;
+        IHubContext<SignalRHub> hub;
 
-        public ActorController(IActorLogic actorLogic)
+        public ActorController(IActorLogic actorLogic, IHubContext<SignalRHub> hub)
         {
             this.actorLogic = actorLogic;
-
+            this.hub = hub;
         }
 
         [HttpGet]
@@ -40,6 +42,7 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
         public void Post([FromBody] Actor value)
         {
             actorLogic.Create(value);
+            this.hub.Clients.All.SendAsync("ActorCreated", value);
 
         }
 
@@ -47,15 +50,17 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
         public void Put([FromBody] Actor value)
         {
             actorLogic.Update(value);
-
+            this.hub.Clients.All.SendAsync("ActorUpdated", value);
 
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
             var deleteActor = actorLogic.Read(id);
             actorLogic.Delete(id);
+            this.hub.Clients.All.SendAsync("ActorDeleted", deleteActor);
 
 
         }
