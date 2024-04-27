@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,8 +29,10 @@ namespace DesktopFrontend.WpfClient
                 {
                     selectedActor = new Actor()
                     {
+                        Id= value.Id,
                         Name = value.Name,
-                        Id = value.Id,
+                        Gender = value.Gender,
+                        Age = Convert.ToInt32(value.Age)
                     };
                     OnPropertyChanged();
                     (DeleteActorCommand as RelayCommand).RaiseCanExecuteChanged();
@@ -68,7 +71,9 @@ namespace DesktopFrontend.WpfClient
             {
                 Actors.Add(new Actor()
                 {
-                    Name = SelectedActor.Name
+                    Name = SelectedActor.Name,
+                    Gender = SelectedActor.Gender,
+                    Age = Convert.ToInt32(SelectedActor.Age)
                 });
             });
 

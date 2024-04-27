@@ -25,6 +25,13 @@
         <StackPanel Grid.Column="1">
             <Label Content="Name" Background="LightBlue" Padding="10" />
             <TextBox Text="{Binding SelectedActor.Name}" Padding="10" Margin="0,0,0,30" />
+
+            <Label Content="Age" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedActor.Age}" Padding="10" Margin="0,0,0,30" />
+
+            <Label Content="Gender" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedActor.Gender}" Padding="10" Margin="0,0,0,30" />
+
             <Button Content="Create Actor" Command="{Binding CreateActorCommand}" Margin="10" Padding="10"></Button>
             <Button Content="Delete Actor" Command="{Binding DeleteActorCommand}" Margin="10" Padding="10"></Button>
             <Button Content="Update Actor" Command="{Binding UpdateActorCommand}" Margin="10" Padding="10"></Button>
