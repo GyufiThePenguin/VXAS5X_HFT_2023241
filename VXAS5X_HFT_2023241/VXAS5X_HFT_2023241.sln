@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{14F9DE
 		..\.gitignore = ..\.gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopFrontend.WpfClient", "DesktopFrontend.WpfClient\DesktopFrontend.WpfClient.csproj", "{759CC7AD-B2AD-4BC7-929C-4A1FBAAEE120}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopFrontend.WpfClient", "DesktopFrontend.WpfClient\DesktopFrontend.WpfClient.csproj", "{759CC7AD-B2AD-4BC7-929C-4A1FBAAEE120}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

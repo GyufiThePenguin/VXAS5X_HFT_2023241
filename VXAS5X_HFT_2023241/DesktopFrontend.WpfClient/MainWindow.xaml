@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopFrontend.WpfClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Editor" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModell/>
+    </Window.DataContext>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox ItemsSource="{Binding Actors}" SelectedItem="{Binding SelectedActor}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Name}"></Label>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Column="1">
+            <Label Content="Name" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedActor.Name}" Padding="10" Margin="0,0,0,10" />
+
+            <Label Content="Age" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedActor.Age}" Padding="10" Margin="0,0,0,10" />
+
+            <Label Content="Gender" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedActor.Gender}" Padding="10" Margin="0,0,0,10" />
+
+            <Button Content="Create Actor" Command="{Binding CreateActorCommand}" Margin="10" Padding="10"></Button>
+            <Button Content="Delete Actor" Command="{Binding DeleteActorCommand}" Margin="10" Padding="10"></Button>
+            <Button Content="Update Actor" Command="{Binding UpdateActorCommand}" Margin="10" Padding="10"></Button>
+        </StackPanel>
 
     </Grid>
 </Window>
