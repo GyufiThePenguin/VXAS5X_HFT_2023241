@@ -2,9 +2,11 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using VXAS5X_HFT_2023241.Models;
 
@@ -43,17 +45,24 @@ namespace DesktopFrontend.WpfClient
         public ICommand CreateActorCommand { get; set; }
         public ICommand DeleteActorCommand { get; set; }
         public ICommand UpdateActorCommand { get; set; }
-        
 
+        public static bool IsInDesignMode
+        {
+            get
+            {
+                var prop = DesignerProperties.IsInDesignModeProperty;
+                return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.Equals(true);
+            }
+        }
 
 
         public MainWindowViewModell()
         {
-            
 
-            //if ide?
 
-            Actors = new RestCollection<Actor>("http://localhost:62255/", "actor");
+            //if ide? IsInDesignMode
+
+            Actors = new RestCollection<Actor>("http://localhost:62255/", "actor", "hub");
 
             CreateActorCommand = new RelayCommand(() =>
             {
