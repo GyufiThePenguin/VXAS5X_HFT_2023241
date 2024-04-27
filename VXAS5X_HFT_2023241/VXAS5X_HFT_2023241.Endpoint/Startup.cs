@@ -11,6 +11,7 @@ using VXAS5X_HFT_2023241.Logic;
 using VXAS5X_HFT_2023241.Repository;
 using VXAS5X_HFT_2023241.Logic;
 using VXAS5X_HFT_2023241.Repository;
+using VXAS5X_HFT_2023241.Endpoint.Services;
 
 namespace VXAS5X_HFT_2023241.Endpoint
 {
@@ -33,6 +34,8 @@ namespace VXAS5X_HFT_2023241.Endpoint
 
             services.AddTransient<StagePlayDbContext, StagePlayDbContext>();
 
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +52,7 @@ namespace VXAS5X_HFT_2023241.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }
