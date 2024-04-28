@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
+using VXAS5X_HFT_2023241.Endpoint.Services;
 using VXAS5X_HFT_2023241.Logic;
 using VXAS5X_HFT_2023241.Models;
 
@@ -12,10 +13,12 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
     {
 
         IDramaaturgLogic dramaturgLogic;
+        IHubContext<SignalRHub> hub;
 
-        public DramaturgController(IDramaaturgLogic dramaturgLogic)
+        public DramaturgController(IDramaaturgLogic dramaturgLogic, IHubContext<SignalRHub> hub)
         {
             this.dramaturgLogic = dramaturgLogic;
+            this.hub = hub;
         }
 
         [HttpGet]
@@ -34,12 +37,14 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
         public void Post([FromBody] Dramaturg value)
         {
             dramaturgLogic.Create(value);
+            this.hub.Clients.All.SendAsync("DramaturgCreated", value);
         }
 
         [HttpPut]
         public void Put([FromBody] Dramaturg value)
         {
             dramaturgLogic.Update(value);
+            this.hub.Clients.All.SendAsync("DramaturgUpdated", value);
         }
 
         [HttpDelete("{id}")]
@@ -47,6 +52,7 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
         {
             var dramaturgDelete = dramaturgLogic.Read(id);
             dramaturgLogic.Delete(id);
+            this.hub.Clients.All.SendAsync("DramaturgDeleted", dramaturgDelete);
         }
 
     }
