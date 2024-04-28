@@ -17,9 +17,14 @@ namespace DesktopFrontend.WpfClient
     {
 
         public RestCollection<Actor> Actors { get; set; }
+        public RestCollection<Dramaturg> Dramaturgs { get; set; }
+        public RestCollection<StagePlay> StagePlays { get; set; }
+
+        //
+        // ========
+        //
 
         private Actor selectedActor;
-
         public Actor SelectedActor
         {
             get { return selectedActor; }
@@ -33,21 +38,88 @@ namespace DesktopFrontend.WpfClient
                         Name = value.Name,
                         Gender = value.Gender,
                         Age = Convert.ToInt32(value.Age)
+
                     };
                     OnPropertyChanged();
                     (DeleteActorCommand as RelayCommand).RaiseCanExecuteChanged();
                 }
-
-
-                //SetProperty(ref selectedActor, value);
                 
+            }
+
+        }
+
+
+        private Dramaturg selectedDramaturg;
+        public Dramaturg SelectedDramaturg
+        {
+            get { return selectedDramaturg; }
+            set 
+            {
+                if (value != null)
+                {
+                    selectedDramaturg = new Dramaturg()
+                    {
+                        Id= value.Id,
+                        Name = value.Name,
+                        Gender = value.Gender,
+                        Age = Convert.ToInt32(value.Age)
+                    };
+                    OnPropertyChanged();
+                    (DeleteDramaturgCommand as RelayCommand).RaiseCanExecuteChanged();
+                }  
+                
+            }
+
+        }
+
+
+        private StagePlay selectedStagePlay;
+        public StagePlay SelectedStagePlay
+        {
+            get { return selectedStagePlay; }
+            set
+            {
+                if (value != null)
+                {
+                    selectedStagePlay = new StagePlay()
+                    {
+                        Id = value.Id,
+                        Title = value.Title,
+                        Premier = Convert.ToInt32(value.Premier),
+                        Profit = Convert.ToInt32(value.Profit),
+                        Rating = value.Rating,
+                        Dramaturg = value.Dramaturg,
+                        DramaturgId = value.DramaturgId,
+                    };
+                    OnPropertyChanged();
+                    (DeleteStagePlayCommand as RelayCommand).RaiseCanExecuteChanged();
+                }
+
+
+
             }
         }
 
+        //
+        // ========
+        //
 
         public ICommand CreateActorCommand { get; set; }
         public ICommand DeleteActorCommand { get; set; }
         public ICommand UpdateActorCommand { get; set; }
+
+        public ICommand CreateDramaturgCommand { get; set; }
+        public ICommand DeleteDramaturgCommand { get; set; }
+        public ICommand UpdateDramaturgCommand { get; set; }
+
+        public ICommand CreateStagePlayCommand { get; set; }
+        public ICommand DeleteStagePlayCommand { get; set; }
+        public ICommand UpdateStagePlayCommand { get; set; }
+
+
+        //
+        // ========
+        //
 
         public static bool IsInDesignMode
         {
@@ -62,10 +134,13 @@ namespace DesktopFrontend.WpfClient
         public MainWindowViewModell()
         {
 
-
-            //if ide? IsInDesignMode
-
             Actors = new RestCollection<Actor>("http://localhost:62255/", "actor", "hub");
+            Dramaturgs = new RestCollection<Dramaturg>("http://localhost:62255/", "dramaturg", "hub");
+            StagePlays = new RestCollection<StagePlay>("http://localhost:62255/", "stageplay", "hub");
+
+            //
+            // CREATE COMMANDS
+            //
 
             CreateActorCommand = new RelayCommand(() =>
             {
@@ -76,6 +151,35 @@ namespace DesktopFrontend.WpfClient
                     Age = Convert.ToInt32(SelectedActor.Age)
                 });
             });
+            
+            CreateDramaturgCommand = new RelayCommand(() =>
+            {
+                Dramaturgs.Add(new Dramaturg()
+                {
+                    Name = SelectedDramaturg.Name,
+                    Gender = SelectedDramaturg.Gender,
+                    Age = Convert.ToInt32(SelectedDramaturg.Age)
+                });
+            });
+            
+            CreateStagePlayCommand = new RelayCommand(() =>
+            {
+                
+                StagePlays.Add(new StagePlay()
+                {
+                    Id = selectedStagePlay.Id,
+                    Title = selectedStagePlay.Title,
+                    Premier = Convert.ToInt32(selectedStagePlay.Premier),
+                    Profit = Convert.ToInt32(selectedStagePlay.Profit),
+                    Rating = selectedStagePlay.Rating,
+                    DramaturgId = selectedStagePlay.DramaturgId
+                });
+            });
+
+
+            //
+            // DELETE COMMANDS
+            //
 
             DeleteActorCommand = new RelayCommand(() =>
             {
@@ -86,12 +190,47 @@ namespace DesktopFrontend.WpfClient
                 return SelectedActor != null;
             });
 
+            DeleteDramaturgCommand = new RelayCommand(() =>
+            {
+                Dramaturgs.Delete(selectedDramaturg.Id);
+            },
+            () =>
+            {
+                return selectedDramaturg != null;
+            });
+
+            DeleteStagePlayCommand = new RelayCommand(() =>
+            {
+                StagePlays.Delete(selectedStagePlay.Id);
+            },
+            () =>
+            {
+                return selectedDramaturg != null;
+            });
+
+
+            //
+            // UPDATE COMMANDS
+            //
+
             UpdateActorCommand = new RelayCommand(() =>
             {
                 Actors.Update(selectedActor);
             });
+            
+            UpdateDramaturgCommand = new RelayCommand(() =>
+            {
+                Dramaturgs.Update(selectedDramaturg);
+            });
+
+            UpdateStagePlayCommand = new RelayCommand(() =>
+            {
+                StagePlays.Update(selectedStagePlay);
+            });
 
             selectedActor = new Actor();
+            selectedDramaturg = new Dramaturg();
+            selectedStagePlay = new StagePlay();
         }
 
     }

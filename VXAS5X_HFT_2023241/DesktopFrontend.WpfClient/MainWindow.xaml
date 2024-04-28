@@ -9,33 +9,124 @@
     <Window.DataContext>
         <local:MainWindowViewModell/>
     </Window.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <ListBox ItemsSource="{Binding Actors}" SelectedItem="{Binding SelectedActor}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding Name}"></Label>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+    <TabControl>
+        
+        
+        <TabItem Header="Actor">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1">
-            <Label Content="Name" Background="LightBlue" Padding="10" />
-            <TextBox Text="{Binding SelectedActor.Name}" Padding="10" Margin="0,0,0,10" />
+                <ListBox ItemsSource="{Binding Actors}" SelectedItem="{Binding SelectedActor}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
-            <Label Content="Age" Background="LightBlue" Padding="10" />
-            <TextBox Text="{Binding SelectedActor.Age}" Padding="10" Margin="0,0,0,10" />
+                <StackPanel Grid.Column="1">
+                    <Label Content="Name" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedActor.Name}" Padding="10" Margin="0,0,0,10" />
 
-            <Label Content="Gender" Background="LightBlue" Padding="10" />
-            <TextBox Text="{Binding SelectedActor.Gender}" Padding="10" Margin="0,0,0,10" />
+                    <Label Content="Age" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedActor.Age}" Padding="10" Margin="0,0,0,10" />
 
-            <Button Content="Create Actor" Command="{Binding CreateActorCommand}" Margin="10" Padding="10"></Button>
-            <Button Content="Delete Actor" Command="{Binding DeleteActorCommand}" Margin="10" Padding="10"></Button>
-            <Button Content="Update Actor" Command="{Binding UpdateActorCommand}" Margin="10" Padding="10"></Button>
-        </StackPanel>
+                    <Label Content="Gender" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedActor.Gender}" Padding="10" Margin="0,0,0,10" />
 
-    </Grid>
+                    <Button Content="Create Actor" Command="{Binding CreateActorCommand}" Margin="10" Padding="10"/>
+                    <Button Content="Delete Actor" Command="{Binding DeleteActorCommand}" Margin="10" Padding="10"/>
+                    <Button Content="Update Actor" Command="{Binding UpdateActorCommand}" Margin="10" Padding="10"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Dramaturg">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <ListBox ItemsSource="{Binding Dramaturgs}" SelectedItem="{Binding SelectedDramaturg}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel Grid.Column="1">
+                    <Label Content="Name" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedDramaturg.Name}" Padding="10" Margin="0,0,0,10" />
+
+                    <Label Content="Age" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedDramaturg.Age}" Padding="10" Margin="0,0,0,10" />
+
+                    <Label Content="Gender" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedDramaturg.Gender}" Padding="10" Margin="0,0,0,10" />
+
+                    <Button Content="Create Dramaturg" Command="{Binding CreateDramaturgCommand}" Margin="10" Padding="10" />
+                    <Button Content="Delete Dramaturg" Command="{Binding DeleteDramaturgCommand}" Margin="10" Padding="10" />
+                    <Button Content="Update Dramaturg" Command="{Binding UpdateDramaturgCommand}" Margin="10" Padding="10" />
+
+                </StackPanel>
+            </Grid>
+        </TabItem>
+
+        
+
+        <TabItem Header="StagePlay">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <ListBox ItemsSource="{Binding StagePlays}" SelectedItem="{Binding SelectedStagePlay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Label Content="{Binding Title}"/>
+                                <Label Content="{Binding Dramaturg.Name, FallbackValue='Dramaturg not found'}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel Grid.Column="1">
+                    <Label Content="ID" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedStagePlay.Id}" Padding="10" Margin="0,0,0,10" />
+
+                    <Label Content="Title" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedStagePlay.Title}" Padding="10" Margin="0,0,0,10" />
+
+                    <Label Content="Premier Year" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedStagePlay.Premier}" Padding="10" Margin="0,0,0,10" />
+
+                    <Label Content="Profit" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedStagePlay.Profit}" Padding="10" Margin="0,0,0,10" />
+
+                    <Label Content="Rating" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedStagePlay.Rating}" Padding="10" Margin="0,0,0,10" />
+
+                    <Label Content="Dramaturg ID" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedStagePlay.DramaturgId}" Padding="10" Margin="0,0,0,10" />
+
+                    <Label Content="Dramaturg Name" Background="LightBlue" Padding="10" />
+                    <TextBox Text="{Binding SelectedStagePlay.Dramaturg.Name}" Padding="10" Margin="0,0,0,10" />
+
+                    <Button Content="Create StagePlay" Command="{Binding CreateStagePlayCommand}" Margin="10" Padding="10" />
+                    <Button Content="Delete StagePlay" Command="{Binding DeleteStagePlayCommand}" Margin="10" Padding="10" />
+                    <Button Content="Update StagePlay" Command="{Binding UpdateStagePlayCommand}" Margin="10" Padding="10" />
+
+                </StackPanel>
+            </Grid>
+        </TabItem>
+
+
+    </TabControl>
 </Window>
