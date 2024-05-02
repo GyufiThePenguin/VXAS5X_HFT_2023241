@@ -1,4 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { AppBar, Toolbar, Button, Container, Typography } from '@mui/material';
 import Actors from './components/Actors';
 import Actorsv2 from './components/Actorsv2';
 import Dramaturgs from './components/Dramaturgs';
@@ -8,10 +10,19 @@ import Home from './components/Home';
 function App() {
   return (
     <Router>
-      <div>
-        <nav>
-          <Link to="/">Home</Link> | <Link to="/actors">Actors</Link> | <Link to="/actorsv2">Actorsv2</Link>| <Link to="/dramaturgs">Dramaturgs</Link>| <Link to="/stagePlays">StagePlays</Link>
-        </nav>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" style={{ flexGrow: 1 }}>
+            Actors Repository
+          </Typography>
+          <Button color="inherit" component={NavLink} to="/" end>Home</Button>
+          <Button color="inherit" component={NavLink} to="/actors">Actors</Button>
+          <Button color="inherit" component={NavLink} to="/actorsv2">Actorsv2</Button>
+          <Button color="inherit" component={NavLink} to="/dramaturgs">Dramaturgs</Button>
+          <Button color="inherit" component={NavLink} to="/stagePlays">Stage Plays</Button>
+        </Toolbar>
+      </AppBar>
+      <Container style={{ marginTop: 20 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/actors" element={<Actors />} />
@@ -19,7 +30,7 @@ function App() {
           <Route path="/dramaturgs" element={<Dramaturgs />} />
           <Route path="/stagePlays" element={<StagePlays />} />
         </Routes>
-      </div>
+      </Container>
     </Router>
   );
 }
