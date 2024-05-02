@@ -38,13 +38,13 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
 
         }
 
-        [HttpPost]
-        public void Post([FromBody] Actor value)
-        {
-            actorLogic.Create(value);
-            this.hub.Clients.All.SendAsync("ActorCreated", value);
+        //[HttpPost]
+        //public void Post([FromBody] Actor value)
+        //{
+        //    actorLogic.Create(value);
+        //    this.hub.Clients.All.SendAsync("ActorCreated", value);
 
-        }
+        //}
 
         [HttpPut]
         public void Put([FromBody] Actor value)
@@ -63,6 +63,41 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
             this.hub.Clients.All.SendAsync("ActorDeleted", deleteActor);
 
 
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Actor actor)
+        {
+            try
+            {
+                actorLogic.Create(actor);
+                this.hub.Clients.All.SendAsync("ActorCreated", actor);
+                return CreatedAtAction(nameof(Get), new { id = actor.Id }, actor);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message); // Return a normal error if I messed up
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Actor actor)
+        {
+            if (id != actor.Id)
+            {
+                return BadRequest("ID mismatch");
+            }
+
+            try
+            {
+                actorLogic.Update(actor);
+                this.hub.Clients.All.SendAsync("ActorUpdated", actor);
+                return NoContent(); // confirms if the updaate is successful
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message); // Return a normal error, not the empty sh*t it used to
+            }
         }
 
     }

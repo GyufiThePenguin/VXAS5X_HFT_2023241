@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Generic;
 using VXAS5X_HFT_2023241.Endpoint.Services;
 using VXAS5X_HFT_2023241.Logic;
@@ -33,12 +34,12 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
             return dramaturgLogic.Read(id);
         }
 
-        [HttpPost]
-        public void Post([FromBody] Dramaturg value)
-        {
-            dramaturgLogic.Create(value);
-            this.hub.Clients.All.SendAsync("DramaturgCreated", value);
-        }
+        //[HttpPost]
+        //public void Post([FromBody] Dramaturg value)
+        //{
+        //    dramaturgLogic.Create(value);
+        //    this.hub.Clients.All.SendAsync("DramaturgCreated", value);
+        //}
 
         [HttpPut]
         public void Put([FromBody] Dramaturg value)
@@ -53,6 +54,41 @@ namespace VXAS5X_HFT_2023241.Endpoint.Controllers
             var dramaturgDelete = dramaturgLogic.Read(id);
             dramaturgLogic.Delete(id);
             this.hub.Clients.All.SendAsync("DramaturgDeleted", dramaturgDelete);
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Dramaturg dramaturg)
+        {
+            try
+            {
+                dramaturgLogic.Create(dramaturg);
+                this.hub.Clients.All.SendAsync("DramaturgCreated", dramaturg);
+                return CreatedAtAction(nameof(Get), new { id = dramaturg.Id }, dramaturg);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message); // Return a normal error if I messed up
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Dramaturg dramaturg)
+        {
+            if (id != dramaturg.Id)
+            {
+                return BadRequest("ID mismatch");
+            }
+
+            try
+            {
+                dramaturgLogic.Update(dramaturg);
+                this.hub.Clients.All.SendAsync("ActorUpdated", dramaturg);
+                return NoContent(); // confirms if the updaate is successful
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message); // Return a normal error, not the empty sh*t it used to
+            }
         }
 
     }
