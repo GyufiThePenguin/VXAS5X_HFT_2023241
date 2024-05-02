@@ -24,6 +24,16 @@ namespace VXAS5X_HFT_2023241.Endpoint
 
             services.AddControllers();
 
+            // Add CORS policy
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowWebApp",
+                    builder => builder.WithOrigins("http://localhost:3000") // React app runs on localhost:3000
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader()
+                                      .AllowCredentials()); 
+            });
+
             services.AddTransient<IActorLogic, ActorLogic>();
             services.AddTransient<IStagePlayLogic, StagePlayLogic>();
             services.AddTransient<IDramaaturgLogic, DramaturgLogic>();
@@ -46,6 +56,10 @@ namespace VXAS5X_HFT_2023241.Endpoint
                 app.UseDeveloperExceptionPage();
             }
 
+            
+
+            // Apply CORS policy globally
+            app.UseCors("AllowWebApp");
 
             app.UseRouting();
 
